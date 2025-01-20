@@ -1,0 +1,22 @@
+def get_max_calories(data, num):
+  elves = {'elf1':[]}
+  for food in data:
+    if food == '':
+      elves['elf' + str(len(elves) + 1)] = []
+    else:
+      elves['elf' + str(len(elves))].append(int(food))
+  for elf in elves:
+    elves[elf] = sum(elves[elf])
+  elves = dict(sorted(elves.items(), key=lambda elf: elf[1], reverse=True))
+  print(f'the {num} highest elves are:')
+  total = 0
+  for i in range(num):
+    elf = list(elves.items())[i]
+    print(f'{elf[0]}: {elf[1]}')
+    total += elf[1]
+  print(f'total calories = {total}')
+
+if __name__ == '__main__':
+  with open('homework_01.txt', 'r') as file:
+    data = [line.strip() for line in file.readlines()]
+    get_max_calories(data, 3)
